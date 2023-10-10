@@ -107,8 +107,9 @@ Note that for production build this needs be changed back so that the path can b
         npm run dev-frontend
 
     Where the script is defined as:
-
-        "dev": "vite --port 3000"
+    ```javascript
+        { "dev": "vite --port 3000" }
+    ```
 
 After the server is spun up, use this URL to install the app on the test store:
 
