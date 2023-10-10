@@ -43,8 +43,6 @@ The general idea is to trick `@shopify/shopify-app-express` to believe its deplo
 
 ### Shopify App Setup In Partner Portal
 
-Under your `partners.shopify.com` account page, go to your app, in App setup tab:
-
 1. Change "App URL" to be `https://www.fake-shopifytest.com`
 2. Change "Allowed redirection URL(s)" to contain the following entries:
   - `https://www.fake-shopifytest.com/auth/callback`
