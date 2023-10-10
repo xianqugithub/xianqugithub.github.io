@@ -13,7 +13,7 @@ While Shopify has provided a comprehensive framework that allows developers quic
 The following steps are largely based on the assumption that the project is generated using Shopify CLI where a full-stack project is contained in a mono-repo that contains both the front and back ends where the back-end reads a static file from front-end folder in a server side rendering manner. The back-end uses is powered by the Express framework in NodeJS and the front-end is developed with React that is built by Vite. An example project can be found in Shopify's official Github repository.
 
 ## General Idea
-The general idea is to trick @shopify/shopify-app-express to believe its deployed in a non-localhost environment with TLS enabled. Thus we can:
+The general idea is to trick `@shopify/shopify-app-express` to believe its deployed in a non-localhost environment with TLS enabled. Thus we can:
 
 1. Alter the DNS entry in the operating system to map a fake domain to localhost.
 2. Use local SSL proxy to redirect the traffic from port 443(HTTPS) to back-end server port for request processing.
