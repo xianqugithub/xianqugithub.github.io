@@ -14,7 +14,6 @@ The following steps are largely based on the assumption that the project is gene
 
 ## General Idea
 The general idea is to trick `@shopify/shopify-app-express` to believe its deployed in a non-localhost environment with TLS enabled. Thus we can:
-
 1. Alter the DNS entry in the operating system to map a fake domain to localhost.
 2. Use local SSL proxy to redirect the traffic from port 443(HTTPS) to back-end server port for request processing.
 3. Temporarily allow unauthorized request via TLS. 
@@ -83,8 +82,7 @@ if (host === "localhost") {
     ```
     <script type="module" src="http://localhost:3000/src/index.jsx"></script>
     ```
-
-Note that for production build this needs be changed back so that the path can be resolved.
+    **Note** that for production build this needs be changed back so that the path can be resolved properly.
 
 ### Start Hacking
 
