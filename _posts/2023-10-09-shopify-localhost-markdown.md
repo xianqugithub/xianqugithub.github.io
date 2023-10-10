@@ -25,7 +25,6 @@ The general idea is to trick @shopify/shopify-app-express to believe its deploye
 
         127.0.0.1 www.fake-shopifytest.com
        
-
 2. Install local SSL proxy and make sure it can run. Leave the proxy running in a separate terminal:
         
         npm install --location=global local-ssl-proxy
@@ -41,13 +40,11 @@ The general idea is to trick @shopify/shopify-app-express to believe its deploye
 
 Under your `partners.shopify.com` account page, go to your app, in App setup tab:
 
-- Change "App URL" to be `https://www.fake-shopifytest.com`
-- Change "Allowed redirection URL(s)" to contain the following entries:
+1. Change "App URL" to be `https://www.fake-shopifytest.com`
+2. Change "Allowed redirection URL(s)" to contain the following entries:
   - `https://www.fake-shopifytest.com/auth/callback`
   - `https://www.fake-shopifytest.com/auth/shopify/callback`
   - `https://www.fake-shopifytest.com/api/auth/callback`
-- Save all changes
-- Under the "Overview" tab, note your Client ID and Client secret. You'll need to set these values in local environment variables in the next step.
 
 ### App Repository Changes
 
@@ -77,17 +74,14 @@ if (host === "localhost") {
 
 #### Change Hot Module Reloading Configurations 
 
-- Include **http://localhost:3000** in `dev_embed.js`:
+1. Include **http://localhost:3000** in `dev_embed.js`:
 
-```
-import RefreshRuntime from "http://localhost:3000/@react-refresh";
-```
+        import RefreshRuntime from "http://localhost:3000/@react-refresh";
 
-- Change `src` entry in `index.html` as follows:
 
-```
-<script type="module" src="http://localhost:3000/src/index.jsx"></script>
-```
+2. Change `src` entry in `index.html` as follows:
+
+        <script type="module" src="http://localhost:3000/src/index.jsx"></script>
 
 Note that for production build this needs be changed back so that the path can be resolved.
 
