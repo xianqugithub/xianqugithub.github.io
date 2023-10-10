@@ -108,7 +108,7 @@ Note that for production build this needs be changed back so that the path can b
 
     Where the script is defined as:
     ```javascript
-        { "dev": "vite --port 3000" }
+    { "dev": "vite --port 3000" }
     ```
 
 After the server is spun up, use this URL to install the app on the test store:
