@@ -106,9 +106,6 @@ if (host === "localhost") {
     vite --port 3000
     ```
 
-After the server is spun up, use this URL to install the app on the test store in the browser: `https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com`
+After the server is spun up, use this URL to install the app on the test store in the browser: <https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com>
 
-You can get the shop link from the shopify store page.
-Note that you need to uninstall the app on a normal shopify page first if you have previously installed it
-before accessing the installation link.
 
