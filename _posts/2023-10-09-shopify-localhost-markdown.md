@@ -84,20 +84,21 @@ if (host === "localhost") {
 }
 ```
 
-#### 
+#### Change Hot Module Reloading Configurations 
 
-- Include localhost info in dev_embed.js:
+- Include **http://localhost:3000** in `dev_embed.js`:
 
 ```
 import RefreshRuntime from "http://localhost:3000/@react-refresh";
 ```
 
-- Change src entry in index.html as follows:
+- Change `src` entry in `index.html` as follows:
 
 ```
 <script type="module" src="http://localhost:3000/src/index.jsx"></script>
 ```
 
+Note that for production build this needs be changed back so that the path can be resolved.
 
 ### Start Hacking
 
