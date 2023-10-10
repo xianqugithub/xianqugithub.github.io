@@ -28,16 +28,16 @@ The general idea is to trick `@shopify/shopify-app-express` to believe its deplo
    127.0.0.1 www.fake-shopifytest.com
    ```
        
-2. Install local SSL proxy and make sure it can run. Leave the proxy running in a separate terminal:
+2. Install local SSL proxy:
    ```console
    npm install --location=global local-ssl-proxy
    ```
 
 3. Set the following environment variables
     ```console
-    export SHOPIFY_API_KEY="<Client ID from your shopify app>"
-    export SHOPIFY_API_SECRET="<Client secret from your shopify app>"
-    export SCOPES="the scopes required by the app for OAuth"
+    export SHOPIFY_API_KEY="Client API KEY"
+    export SHOPIFY_API_SECRET="Client Secret"
+    export SCOPES=Scopes Required By Your App for OAuth"
     export BACKEND_PORT=3000
     ```
 
