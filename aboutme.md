@@ -10,7 +10,7 @@ I am currently working at Amazon as a Software Engineer. I have also worked for 
 - **UI/UX Development**
 
 
-**This blog represents my own view points and not of my employer, Amazon**
+***All articles represent my own view points and not of my employer***
 
 
 
