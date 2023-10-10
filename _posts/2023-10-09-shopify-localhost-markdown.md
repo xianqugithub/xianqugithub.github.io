@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Use Localhost instead of Security Tunnel for Shopify App Development Testing
+title: Use Localhost Instead of Security Tunnel for Shopify App Development Testing
 subtitle: Develop Shopify App WITHOUT Ngrok/Cloudflare
 tags: [shopify, hack]
 comments: true
