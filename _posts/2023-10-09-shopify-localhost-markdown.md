@@ -21,12 +21,14 @@ The general idea is to trick @shopify/shopify-app-express to believe its deploye
 
 ### Global Local Environment Setup
 
-- In your local `/etc/hosts` file, add a new line at the bottom
+1. In your local `/etc/hosts` file, add a new line at the bottom
+
 ```
 127.0.0.1 www.fake-shopifytest.com
 ```
 
-- Install local SSL proxy and make sure it can run. Leave the proxy running in a separate terminal
+2. Install local SSL proxy and make sure it can run. Leave the proxy running in a separate terminal
+
 ```
 # One time operation - you may need to install npm first
 npm install --location=global local-ssl-proxy 
@@ -35,7 +37,8 @@ npm install --location=global local-ssl-proxy
 sudo local-ssl-proxy --source 443 --target 3000
 ```
 
-- Set the following environment variables
+3. Set the following environment variables
+
 ```
 export SHOPIFY_API_KEY="<Client ID from your shopify app>"
 export SHOPIFY_API_SECRET="<Client secret from your shopify app>"
