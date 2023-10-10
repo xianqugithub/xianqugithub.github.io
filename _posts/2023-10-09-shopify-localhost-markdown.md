@@ -99,21 +99,21 @@ Note that for production build this needs be changed back so that the path can b
         npm run dev-server
 
     where the script is defined as:
-
-        "dev": "cross-env NODE_ENV=development HOST=https://www.fake-doppio-shopifytest.com NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon index.js",
+    ```javascript
+    { "dev": "cross-env NODE_ENV=development HOST=https://www.fake-doppio-shopifytest.com NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon index.js" }
+    ```
 
 4. Run front-end in dev mode:
-
-        npm run dev-frontend
+    ```console
+    npm run dev-frontend
+    ```
 
     Where the script is defined as:
     ```javascript
     { "dev": "vite --port 3000" }
     ```
 
-After the server is spun up, use this URL to install the app on the test store:
-
-        https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com
+After the server is spun up, use this URL to install the app on the test store in the browser: `https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com`
 
 You can get the shop link from the shopify store page.
 Note that you need to uninstall the app on a normal shopify page first if you have previously installed it
