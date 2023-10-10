@@ -21,27 +21,20 @@ The general idea is to trick @shopify/shopify-app-express to believe its deploye
 
 ### Global Local Environment Setup
 
-1. In your local `/etc/hosts` file, add a new line at the bottom
+1. In your local `/etc/hosts` file, add a new line at the bottom:
+
         127.0.0.1 www.fake-shopifytest.com
        
-2. Install local SSL proxy and make sure it can run. Leave the proxy running in a separate terminal
-
-```
-# One time operation - you may need to install npm first
-npm install --location=global local-ssl-proxy 
-
-# Then run this in a separate terminal
-sudo local-ssl-proxy --source 443 --target 3000
-```
+2. Install local SSL proxy and make sure it can run. Leave the proxy running in a separate terminal:
+        
+        npm install --location=global local-ssl-proxy
 
 3. Set the following environment variables
 
-```
-export SHOPIFY_API_KEY="<Client ID from your shopify app>"
-export SHOPIFY_API_SECRET="<Client secret from your shopify app>"
-export SCOPES="the scopes required by the app for OAuth"
-export BACKEND_PORT=3000
-```
+        export SHOPIFY_API_KEY="<Client ID from your shopify app>"
+        export SHOPIFY_API_SECRET="<Client secret from your shopify app>"
+        export SCOPES="the scopes required by the app for OAuth"
+        export BACKEND_PORT=3000
 
 ### Shopify App Setup In Partner Portal
 
@@ -100,41 +93,32 @@ Note that for production build this needs be changed back so that the path can b
 ### Start Hacking
 
 1. Install dependencies using standard NPM command:
+       
+        npm install
 
-```
-npm install
-```
+2. Start proxy:
 
-2. Run server in dev mode:
+        sudo local-ssl-proxy --source 443 --target 3000
 
-```
-npm run dev-server
-```
+3. Run server in dev mode:
 
-where the script is defined as:
-
-```
-"dev": "cross-env NODE_ENV=development HOST=https://www.fake-doppio-shopifytest.com NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon index.js",
-```
-
-
-3. Run front-end in dev mode:
-
-```
-npm run dev-frontend
-```
+        npm run dev-server
 
 where the script is defined as:
 
-```
-"dev": "vite --port 3000"
-```
+        "dev": "cross-env NODE_ENV=development HOST=https://www.fake-doppio-shopifytest.com NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon index.js",
+
+4. Run front-end in dev mode:
+
+        npm run dev-frontend
+
+where the script is defined as:
+
+        "dev": "vite --port 3000"
 
 After the server is spun up, use this URL to install the app on the test store:
 
-```
-https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com
-```
+        https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com
 
 You can get the shop link from the shopify store page.
 Note that you need to uninstall the app on a normal shopify page first if you have previously installed it
