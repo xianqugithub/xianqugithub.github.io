@@ -14,7 +14,7 @@ The following steps are largely based on the assumption that the project is gene
 
 ## General Idea
 The general idea is to trick ***`@shopify/shopify-app-express`*** to believe its deployed in a non-localhost environment with TLS enabled. Thus we can:
-1. Alter the DNS entry in the operating system to map a fake domain to localhost.
+1. <span style="color:green">Alter the DNS entry in the operating system to map the fake domain to localhost</span>.
 2. Use local SSL proxy to redirect the traffic from port 443(HTTPS) to back-end server port for request processing.
 
 ![ShopifyLocalTestSequence](https://xianqugithub.github.io/assets/img/shopify-localhost-sequence.jpeg){: .mx-auto.d-block :}

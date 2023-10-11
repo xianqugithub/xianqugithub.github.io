@@ -37,10 +37,8 @@
       "Local File System" -[#green]> Developer: DNS Resolution Request
 
      Developer -[#blue]> "SSL Proxy": HTTPs Request
-     "SSL Proxy" -[#blue]> "Back-end Express Server": HTTP Request
-     "Back-end Express Server" -> "Front-end Vite Server": Sync File Read Request
-     "Front-end Vite Server" -> "Back-end Express Server": Sync File Read Response
-     "Back-end Express Server" -[#blue]> "SSL Proxy": HTTP Response
+     "SSL Proxy" -[#blue]> "Shopify App": HTTP Request
+     "Shopify App" -[#blue]> "SSL Proxy": HTTP Response
      "SSL Proxy" -[#blue]> Developer: HTTPs Response
     
    #+end_src
