@@ -7,7 +7,7 @@ comments: true
 ---
 
 {: .box-success}
-While Shopify has provided a comprehensive framework that allows developers quickly develop apps using Shopify CLI, it is still not light-weighted in the sense that it has hard dependency on network security tunnels such as Ngrok (which is a long-term partner with them), which increases package building time and slows down network communications. It is therefore a frequently asked question to know how to by-pass such dependency and/or one of the top feature requests to Shopify CLI by developers. In this article, I will talk about technical hacks we used to develop a full-stack Shopify app without using any security tunnel.
+While Shopify has provided a comprehensive framework that allows developers quickly develop apps using Shopify CLI, it is still not light-weighted in the sense that it has hard dependency on network security tunnels such as Ngrok (which is a long-term partner with them), which increases package building time and slows down network communications. It is therefore a frequently asked question to know how to by-pass such requirement. In this article, I will talk about technical hacks we used to develop a full-stack Shopify app without using any security tunnel.
 
 ## Assumption
 The following steps are largely based on the assumption that the project is generated using Shopify CLI where a full-stack project is contained in a mono-repo that includes both the front and back ends where the back-end synchronously reads a static file from front-end folder in a server-side rendering manner. The back-end is powered by the Express framework in NodeJS and the front-end is developed with React with Vite as the building system. An example project can be found in Shopify’s official Github repository.
