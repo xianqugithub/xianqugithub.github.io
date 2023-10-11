@@ -91,21 +91,21 @@ if (host === "localhost") {
    npm install
    ```
 
-2. Start proxy:
+2. Start proxy in a dedicated terminal:
    ```console
    sudo local-ssl-proxy --source 443 --target 3000
    ```
 
-3. Run server in dev mode:
+3. Run developmental back-end server in a dedicated terminal:
    ```console
    cross-env NODE_ENV=development HOST=https://www.fake-doppio-shopifytest.com NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon index.js
    ```
 
-4. Run front-end in dev mode:
+4. Run developmental front-end server in a dedicated terminal:
    ```console
    vite --port 3000
    ```
 
-After the server is spun up, use this URL to install the app on the test store in the browser: <https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com>
+Use this URL to install the app on the test store in the browser: <https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com>. If everything is setting up properly, you should be redirected to app installation page. From there you can start making changes and see the live update of the app. Happy hacking. 
 
 
