@@ -80,9 +80,9 @@ if (host === "localhost") {
 
 2. Change `src` entry in `index.html` as follows:
     ```
+    <!--Note that for production build(e.g. vite build) this needs be changed back so that the path can be resolved properly.-->
     <script type="module" src="http://localhost:3000/src/index.jsx"></script>
     ```
-    **Note** that for production build this needs be changed back so that the path can be resolved properly.
 
 ### Start Hacking
 
