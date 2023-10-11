@@ -97,14 +97,14 @@ if (host === "localhost") {
    ```
 
 3. Run server in dev mode:
-     ```console
-     cross-env NODE_ENV=development HOST=https://www.fake-doppio-shopifytest.com NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon index.js
-     ```
+   ```console
+   cross-env NODE_ENV=development HOST=https://www.fake-doppio-shopifytest.com NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon index.js
+   ```
 
 4. Run front-end in dev mode:
-    ```console
-    vite --port 3000
-    ```
+   ```console
+   vite --port 3000
+   ```
 
 After the server is spun up, use this URL to install the app on the test store in the browser: <https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com>
 
