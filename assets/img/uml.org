@@ -1,0 +1,49 @@
+* Local Host Component
+  #+begin_src plantuml :file shopify-localhost-component.jpeg
+    actor Browser
+
+    component "Local File System" as LFS
+
+    Browser --down--> LFS #line:green;line.bold;text:green : DNS Resolution Request\nfake-shopifytest 
+    LFS --up--> Browser #line:green;line.bold;text:green : Response\nlocalhost 
+
+    component "SSL Proxy" as SSLP
+
+    Browser -> SSLP #line:red;line.bold;text:red : HTTPS Request
+    SSLP -> Browser #line:red;line.bold;text:red : Response
+
+    component "Back-end Express Server" as BES
+    SSLP -> BES #line:red;line.bold;text:red : HTTP Request
+    BES -> SSLP #line:red;line.bold;text:red : Response
+
+    component "Front-end Vite Server" as FES
+    BES -> FES: Sync File Read
+
+     
+
+
+
+  #+end_src
+
+  #+RESULTS:
+  [[file:shopify-localhost.jpeg]]
+
+  
+* Local Host Sequence Diagram
+     #+begin_src plantuml :file shopify-localhost-sequence.jpeg
+
+     actor Developer
+      Developer -[#green]> "Local File System": DNS Resolution Request
+      "Local File System" -[#green]> Developer: DNS Resolution Request
+
+     Developer -[#blue]> "SSL Proxy": HTTPs Request
+     "SSL Proxy" -[#blue]> "Back-end Express Server": HTTP Request
+     "Back-end Express Server" -> "Front-end Vite Server": Sync File Read Request
+     "Front-end Vite Server" -> "Back-end Express Server": Sync File Read Response
+     "Back-end Express Server" -[#blue]> "SSL Proxy": HTTP Response
+     "SSL Proxy" -[#blue]> Developer: HTTPs Response
+    
+   #+end_src
+
+   #+RESULTS:
+   [[file:shopify-localhost-sequence.jpeg]]
