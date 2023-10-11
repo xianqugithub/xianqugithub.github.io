@@ -106,6 +106,6 @@ if (host === "localhost") {
    vite --port 3000
    ```
 
-Use this URL to install the app on the test store in the browser: <https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com>. If everything is setting up properly, you should be redirected to app installation page. From there you can start making changes and see the live update of the app. Happy hacking. 
+Use this URL to install the app on the test store in the browser: <https://www.fake-shopifytest.com/?shop={your-test-store}.myshopify.com>. If everything is setting up properly, you should be redirected to app installation page. From there you can start making changes and see live updates of the app. Happy hacking. 
 
 
