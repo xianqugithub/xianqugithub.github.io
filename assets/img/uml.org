@@ -1,34 +1,3 @@
-* Local Host Component
-  #+begin_src plantuml :file shopify-localhost-component.jpeg
-    actor Browser
-
-    component "Local File System" as LFS
-
-    Browser --down--> LFS #line:green;line.bold;text:green : DNS Resolution Request\nfake-shopifytest 
-    LFS --up--> Browser #line:green;line.bold;text:green : Response\nlocalhost 
-
-    component "SSL Proxy" as SSLP
-
-    Browser -> SSLP #line:red;line.bold;text:red : HTTPS Request
-    SSLP -> Browser #line:red;line.bold;text:red : Response
-
-    component "Back-end Express Server" as BES
-    SSLP -> BES #line:red;line.bold;text:red : HTTP Request
-    BES -> SSLP #line:red;line.bold;text:red : Response
-
-    component "Front-end Vite Server" as FES
-    BES -> FES: Sync File Read
-
-     
-
-
-
-  #+end_src
-
-  #+RESULTS:
-  [[file:shopify-localhost.jpeg]]
-
-  
 * Local Host Sequence Diagram
      #+begin_src plantuml :file shopify-localhost-sequence.jpeg
 
@@ -45,3 +14,71 @@
 
    #+RESULTS:
    [[file:shopify-localhost-sequence.jpeg]]
+
+   
+* Shopify AWS Architecture
+  #+begin_src plantuml :file shopify-aws-architecture.jpeg
+  
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v15.0/dist
+!include AWSPuml/AWSCommon.puml
+' Uncomment the following line to create simplified view
+' !include AWSPuml/AWSSimplified.puml
+
+!include AWSPuml/General/Users.puml
+!include AWSPuml/ApplicationIntegration/APIGateway.puml
+!include AWSPuml/SecurityIdentityCompliance/Cognito.puml
+!include AWSPuml/Compute/Lambda.puml
+!include AWSPuml/Database/DynamoDB.puml
+!include AWSPuml/Containers/Fargate.puml
+!include AWSPuml/Groups/VPC.puml
+!include AWSPuml/Compute/ParallelCluster.puml
+!include AWSPuml/NetworkingContentDelivery/ElasticLoadBalancingApplicationLoadBalancer.puml
+!include AWSPuml/NetworkingContentDelivery/Route53.puml
+!include AWSPuml/Containers/ElasticContainerServiceContainer3.puml
+!include AWSPuml/SecurityIdentityCompliance/SecretsManager.puml
+!include AWSPuml/Database/DynamoDB.puml
+!include AWSPuml/Containers/ElasticContainerRegistry.puml
+!include AWSPuml/Containers/ElasticContainerRegistryImage.puml
+!include AWSPuml/SecurityIdentityCompliance/WAF.puml
+
+Users(shopifySources, "Shopify App Users", "user requests")
+Users(shopifyDevelopers, "Shopify App Developers", "developer changes")
+
+skinparam usecaseBorderColor Black
+skinparam usecaseBackgroundColor White
+
+rectangle "Shopify App AWS Runtime Environment" {
+
+  DynamoDB(ddb, "Dynamo DB", "store app data")
+
+  VPCGroup(vpc, "Virtual Private Cloud") {
+    WAF(waf, "Web Application Firewall", "protects web application")
+    ElasticLoadBalancingApplicationLoadBalancer(nlb, "Load Balancer", "distribute traffic")
+    Fargate(cluster, "Service Cluster", "route request to individual container") 
+    ElasticContainerRegistryImage(container, "Container", "handle business logic")
+  }
+  
+  Route53(route, "DNS", "host DNS")
+}
+
+rectangle "Shopify App AWS Deployment Environment" {
+   ElasticContainerRegistry(ecr, "Container Registry", "container deployment")
+   SecretsManager(sm, "Secrets Manager", "store app credential")
+}
+
+shopifySources --> route
+route -down-> waf
+waf -right-> nlb
+nlb -down-> cluster
+cluster -right-> container
+container -down-> ddb
+
+shopifyDevelopers -down-> ecr
+ecr -left-> container
+container -right-> sm
+
+ 
+  #+end_src
+
+  #+RESULTS:
+  [[file:shopify-aws-architecture.jpeg]]
