@@ -34,7 +34,7 @@
 
      actor Developer
       Developer -[#green]> "Local File System": DNS Resolution Request
-      "Local File System" -[#green]> Developer: DNS Resolution Request
+      "Local File System" -[#green]> Developer: DNS Resolution Response
 
      Developer -[#blue]> "SSL Proxy": HTTPs Request
      "SSL Proxy" -[#blue]> "Shopify App": HTTP Request
