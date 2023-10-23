@@ -12,7 +12,7 @@ While theoretically Shopify apps can be hosted on any platforms, the official Sh
 Even though cloud service providers have already significantly reduced the effort to create and maintain infrastructures, there are still a few key points to keep in mind when considering architectural scalability:
 1. **Computation Scalability**: Computational resources need to be able to maintain a high service availability at scale.
 2. **Storage Scalability**: There should be a plenty amount of storage space to deal with all application data.
-3. **Security: Security** threats can counter all the efforts that devoted in previous resources. One dominant example is Denial of Service (DDOS) attack where a malicious attacker can potentially occupy all the resources. Simply put, no one wants to have a service that can handle a high traffic but is vulnerable at the same time. 
+3. **Security**: Security threats can counter all the efforts that devoted in previous resources. One dominant example is Denial of Service (DDOS) attack where a malicious attacker can potentially occupy all the resources. Simply put, no one wants to have a service that can handle a high traffic but is vulnerable at the same time. 
 
 To tackle these issues, we can utilize the following AWS tools:
 1. **Computation Scalability**:
