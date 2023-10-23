@@ -66,6 +66,4 @@ A typical `build-and-serve-app.sh` is as follows. It's easier to use a script wh
     
     # Serve the app
     npm run serve
-    
-## Summary
-    
+        
