@@ -10,9 +10,9 @@ While theoretically Shopify apps can be hosted on any platforms, the official Sh
 
 ## Architecture
 Even though cloud service providers have already significantly reduced the effort to create and maintain infrastructures, there are still a few key points to keep in mind when considering architectural scalability:
-1. Computation scalability: Computational resources need to be able to maintain a high service availability at scale.
-2. Storage scalability: There should be a plenty amount of storage space to deal with all application data.
-3. Security: Security threats can counter all the efforts that devoted in previous resources. One dominant example is Denial of Service (DDOS) attack where a malicious attacker can potentially occupy all the resources. Simply put, no one wants to have a service that can handle a high traffic but is vulnerable at the same time. 
+1. **Computation scalability**: Computational resources need to be able to maintain a high service availability at scale.
+2. **Storage scalability**: There should be a plenty amount of storage space to deal with all application data.
+3. **Security: Security** threats can counter all the efforts that devoted in previous resources. One dominant example is Denial of Service (DDOS) attack where a malicious attacker can potentially occupy all the resources. Simply put, no one wants to have a service that can handle a high traffic but is vulnerable at the same time. 
 
 To tackle these issues, we can utilize the following AWS tools:
 1. Computation scalability:
@@ -28,11 +28,9 @@ To tackle these issues, we can utilize the following AWS tools:
 Put everything in the same picture, we can have such architecture:
 ![ShopifyAWSArchitecture](https://xianqugithub.github.io/assets/img/shopify-aws-architecture.jpeg){: .mx-auto.d-block :}
 
-
 ## Docker File for ECS
 One of the tricky step during the deployment process is to build the app container properly as the container requires a non-trivial amounts of detailed configurations to work properly. The following code excerpts is just one example to show how everything could possibly be pieced together when AWS architecture is involved:
 
-    ```
     FROM public.ecr.aws/sam/build-nodejs16.x:1.76.0-20230303022354
 
     ENV SCOPES="" # Fill in the scope required by the app
@@ -46,11 +44,9 @@ One of the tricky step during the deployment process is to build the app contain
     RUN chmod +x /app/build-and-serve-app.sh
     CMD ["sh", "/app/build-and-serve-app.sh"]
     # Docker build finishes
-    ```
 
 A typical `build-and-serve-app.sh` is as follows. It's easier to use a script when non-trivial manipulations of variables are involved(in this case, retrieve Shopify credentials from Secrets Manager and inject them into environment variable dynamically):
 
-    ```
     # Retrive credentials from Secrets Manager for app build 
     sc=$(aws secretsmanager get-secret-value \
              --secret-id ShopifySecret \
@@ -71,4 +67,4 @@ A typical `build-and-serve-app.sh` is as follows. It's easier to use a script wh
     # Serve the app
     npm run serve
     
-    ```
+    
