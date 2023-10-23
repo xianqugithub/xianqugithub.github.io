@@ -10,15 +10,15 @@ While theoretically Shopify apps can be hosted on any platforms, the official Sh
 
 ## Architecture
 Even though cloud service providers have already significantly reduced the effort to create and maintain infrastructures, there are still a few key points to keep in mind when considering architectural scalability:
-1. ***Computation scalability***: Computational resources need to be able to maintain a high service availability at scale.
-2. ***Storage scalability***: There should be a plenty amount of storage space to deal with all application data.
+1. ***Computation Scalability***: Computational resources need to be able to maintain a high service availability at scale.
+2. ***Storage Scalability***: There should be a plenty amount of storage space to deal with all application data.
 3. ***Security: Security*** threats can counter all the efforts that devoted in previous resources. One dominant example is Denial of Service (DDOS) attack where a malicious attacker can potentially occupy all the resources. Simply put, no one wants to have a service that can handle a high traffic but is vulnerable at the same time. 
 
 To tackle these issues, we can utilize the following AWS tools:
-1. ***Computation scalability***:
+1. ***Computation Scalability***:
    - **Application Load Balancer(ALB)**: The reason that ALB but not NLB(Network Load Balancer) is used is because ALB makes routing decisions at the application layer (HTTP/HTTPS) but NLB routes at TCP/SSL level. It's therefore easier to configure the whole load balancing using just ALB with Route 53. 
    - **Elastic Container Service(ECS)**: Compared with EC2, ECS has lower operations burden. Plus, the majority of Shopify app should be generated with Shopify CLI which already contains a docker build file and using a Docker based environment for production is thus recommended. 
-2. ***Storage scalability***:
+2. ***Storage Scalability***:
    - **DynamoDb**: While technically, a local database would work (for example sqlite in the docker image), there is risk of ECS service stop due to high disk usage. It's hard to argue against DynamoDb, a service that has nearly unlimited throughput and storage, to store app session data which is non-relational anyway.
 3. ***Security***:
    - **Virtual Private Cloud(VPC)**: Put AWS resources in private virtual network can significantly increase the security of the resources with self-defined security groups. 
@@ -28,7 +28,7 @@ To tackle these issues, we can utilize the following AWS tools:
 Put everything in the same picture, we can have such architecture:
 ![ShopifyAWSArchitecture](https://xianqugithub.github.io/assets/img/shopify-aws-architecture.jpeg){: .mx-auto.d-block :}
 
-## Docker File for ECS
+## Docker File for Container
 One of the tricky step during the deployment process is to build the app container properly as the container requires a non-trivial amounts of detailed configurations to work properly. The following code excerpts is just one example to show how everything could possibly be pieced together when AWS architecture is involved:
 
     FROM public.ecr.aws/sam/build-nodejs16.x:1.76.0-20230303022354
@@ -67,4 +67,5 @@ A typical `build-and-serve-app.sh` is as follows. It's easier to use a script wh
     # Serve the app
     npm run serve
     
+## Summary
     
