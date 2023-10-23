@@ -10,20 +10,20 @@ While theoretically Shopify apps can be hosted on any platforms, the official Sh
 
 ## Architecture
 Even though cloud service providers have already significantly reduced the effort to create and maintain infrastructures, there are still a few key points to keep in mind when considering architectural scalability:
-1. ***Computation Scalability***: Computational resources need to be able to maintain a high service availability at scale.
-2. ***Storage Scalability***: There should be a plenty amount of storage space to deal with all application data.
-3. ***Security: Security*** threats can counter all the efforts that devoted in previous resources. One dominant example is Denial of Service (DDOS) attack where a malicious attacker can potentially occupy all the resources. Simply put, no one wants to have a service that can handle a high traffic but is vulnerable at the same time. 
+1. **Computation Scalability**: Computational resources need to be able to maintain a high service availability at scale.
+2. **Storage Scalability**: There should be a plenty amount of storage space to deal with all application data.
+3. **Security: Security** threats can counter all the efforts that devoted in previous resources. One dominant example is Denial of Service (DDOS) attack where a malicious attacker can potentially occupy all the resources. Simply put, no one wants to have a service that can handle a high traffic but is vulnerable at the same time. 
 
 To tackle these issues, we can utilize the following AWS tools:
-1. ***Computation Scalability***:
-   - **Application Load Balancer(ALB)**: The reason that ALB but not NLB(Network Load Balancer) is used is because ALB makes routing decisions at the application layer (HTTP/HTTPS) but NLB routes at TCP/SSL level. It's therefore easier to configure the whole load balancing using just ALB with Route 53. 
-   - **Elastic Container Service(ECS)**: Compared with EC2, ECS has lower operations burden. Plus, the majority of Shopify app should be generated with Shopify CLI which already contains a docker build file and using a Docker based environment for production is thus recommended. 
-2. ***Storage Scalability***:
-   - **DynamoDb**: While technically, a local database would work (for example sqlite in the docker image), there is risk of ECS service stop due to high disk usage. It's hard to argue against DynamoDb, a service that has nearly unlimited throughput and storage, to store app session data which is non-relational anyway.
-3. ***Security***:
-   - **Virtual Private Cloud(VPC)**: Put AWS resources in private virtual network can significantly increase the security of the resources with self-defined security groups. 
-   - **Web Application FireWall(WAF)**: WAF can help protect deployed Shopify app, which is a web application from common web exploits.
-   - **Secrets Manager**: as every Shopify app requires a pair API key and API secret to spin up the application, the credentials need to be stored in a secure place. Hard code these credentials in code base exposes the application with high security risk and by using secrets manager, the credentials can be stored safely and retrieved dynamically during the application building process.
+1. **Computation Scalability**:
+   - ***Application Load Balancer(ALB)***: The reason that ALB but not NLB(Network Load Balancer) is used is because ALB makes routing decisions at the application layer (HTTP/HTTPS) but NLB routes at TCP/SSL level. It's therefore easier to configure the whole load balancing using just ALB with Route 53. 
+   - ***Elastic Container Service(ECS)***: Compared with EC2, ECS has lower operations burden. Plus, the majority of Shopify app should be generated with Shopify CLI which already contains a docker build file and using a Docker based environment for production is thus recommended. 
+2. **Storage Scalability**:
+   - ***DynamoDb***: While technically, a local database would work (for example sqlite in the docker image), there is risk of ECS service stop due to high disk usage. It's hard to argue against DynamoDb, a service that has nearly unlimited throughput and storage, to store app session data which is non-relational anyway.
+3. **Security**:
+   - ***Virtual Private Cloud(VPC)***: Put AWS resources in private virtual network can significantly increase the security of the resources with self-defined security groups. 
+   - ***Web Application FireWall(WAF)***: WAF can help protect deployed Shopify app, which is a web application from common web exploits.
+   - ***Secrets Manager***: as every Shopify app requires a pair API key and API secret to spin up the application, the credentials need to be stored in a secure place. Hard code these credentials in code base exposes the application with high security risk and by using secrets manager, the credentials can be stored safely and retrieved dynamically during the application building process.
 
 Put everything in the same picture, we can have such architecture:
 ![ShopifyAWSArchitecture](https://xianqugithub.github.io/assets/img/shopify-aws-architecture.jpeg){: .mx-auto.d-block :}
