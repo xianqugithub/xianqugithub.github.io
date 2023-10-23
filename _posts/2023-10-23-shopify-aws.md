@@ -59,7 +59,7 @@ A typical `build-and-serve-app.sh` is as follows. It's easier to use a script wh
     npm run install
     
     # Build the back-end, depends on the setup, this can even be an no-op when express is used
-    npm run build-backedn
+    npm run build-backend
 
     # Build the fron-end, this could be something like vite build
     npm run build-frontend
