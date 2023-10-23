@@ -30,7 +30,8 @@ Put everything in the same picture, we can have such architecture:
 
 
 ## Docker File for ECS
-One of the tricky step during the deployment process is to build the app container properly as the container requires a non-trivial amounts of detailed configurations to work properly. The following code excerpts is just one example to show how everything could possibly be pieced together when AWS architecture is involved. 
+One of the tricky step during the deployment process is to build the app container properly as the container requires a non-trivial amounts of detailed configurations to work properly. The following code excerpts is just one example to show how everything could possibly be pieced together when AWS architecture is involved:
+
     ```
     FROM public.ecr.aws/sam/build-nodejs16.x:1.76.0-20230303022354
 
@@ -48,6 +49,7 @@ One of the tricky step during the deployment process is to build the app contain
     ```
 
 A typical `build-and-serve-app.sh` is as follows. It's easier to use a script when non-trivial manipulations of variables are involved(in this case, retrieve Shopify credentials from Secrets Manager and inject them into environment variable dynamically):
+
     ```
     # Retrive credentials from Secrets Manager for app build 
     sc=$(aws secretsmanager get-secret-value \
