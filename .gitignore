@@ -2,6 +2,7 @@
 _site
 .sass-cache
 .vagrant
+.ruby-version
 
 # general
 .DS_Store

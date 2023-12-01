@@ -82,3 +82,44 @@ container -right-> sm
 
   #+RESULTS:
   [[file:shopify-aws-architecture.jpeg]]
+
+  
+* OpenSearchServerless
+  #+begin_src plantuml :file open-search-serverless.jpeg
+
+  !define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v17.0/dist
+  !include AWSPuml/AWSCommon.puml
+  !include AWSPuml/General/Users.puml
+  !include AWSPuml/General/SAMLtoken.puml
+  !include AWSPuml/Compute/Lambda.puml
+  !include AWSPuml/Analytics/OpenSearchService.puml
+  !include AWSPuml/Analytics/OpenSearchServiceOpenSearchDashboards.puml
+  !include AWSPuml/SecurityIdentityCompliance/IdentityAccessManagementRole.puml
+
+  Lambda(ingestionLambda, "Ingestion Lambda", "ingest data")
+  IdentityAccessManagementRole(ingestionRole, "Document Indexing Role", allows write for collection)
+  SAMLtoken(saml, "SAML Authentication Token", "granular authentication based on user group")   
+
+  OpenSearchService(openSearch, "OpenSearchServerless","data storage and query")
+  OpenSearchServiceOpenSearchDashboards(opensearchDashboard, "OpenSearchServerless Dashboards", "data exploration")
+
+  ingestionLambda -right-> ingestionRole: Assume Role 
+  ingestionLambda -down-> openSearch: Index Documents
+  
+  openSearch -right-> ingestionRole: Grant Write Permission
+  openSearch -down-> opensearchDashboard
+  opensearchDashboard --right--> saml: Grant Permission Based on User Group
+  
+  rectangle "Dashboard Users" as dusers {
+      Users(dashboardViewer, "Federated Dashboard Viewer Group", "Dashboard view requests")
+      Users(dashboardCreator, "Federated Dashboard Creator Group", "Dashboard creation requests")
+      Users(dashboardAdmin, "Federated Dashboard Adminstrator Group", "Dashboard administration requests")  
+  }
+
+  dusers -right-> saml: Autenticate Identity
+  dusers -up-> opensearchDashboard: Request Dashboard Activity
+
+  #+end_src
+
+  #+RESULTS:
+  [[file:open-search-serverless.jpeg]]
