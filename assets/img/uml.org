@@ -123,3 +123,59 @@ container -right-> sm
 
   #+RESULTS:
   [[file:open-search-serverless.jpeg]]
+
+* Shopify MiddleWare Diagram
+  #+begin_src plantuml :file shopify-middleware.jpeg
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v15.0/dist
+!include AWSPuml/AWSCommon.puml
+!include AWSPuml/General/Traditionalserver.puml
+!include AWSPuml/Containers/ElasticContainerRegistryImage.puml
+!include AWSPuml/NetworkingContentDelivery/Route53.puml
+!include AWSPuml/General/Users.puml
+!include AWSPuml/SecurityIdentityCompliance/SecretsManager.puml
+!include AWSPuml/Containers/ElasticContainerRegistryImage.puml
+
+Users(shopifyUsers, "Shopify App Users", "user requests")
+Users(appDevelopers, "Shopify App Developers", "configure credentials")
+
+Traditionalserver(server, "Shopify OAuth Service", "handles App OAuth request")
+ElasticContainerRegistryImage(container, "Container", "handle business logic")
+
+
+SecretsManager(sm, "Secrets Manager", "store app credential")
+
+
+rectangle "Mulltiple Store MiddleWare" {
+
+ 
+ map ShopifyOAuthCache {
+   StoreOne => OAuth Credential for Store One
+   StoreTwo => OAuth Credential for Store Two
+   ... => ...
+   StoreN => OAuth Credential for Store N
+ }
+}
+
+shopifyUsers -down-> container #line:blue;line.dotted;text:blue 
+shopifyUsers -down-> container #line:green;line.dotted;text:green 
+shopifyUsers -down-> container #line:grey;line.dotted;text:grey
+
+ShopifyOAuthCache -down-> server #line:blue;line.dotted;text:blue
+ShopifyOAuthCache -down-> server #line:green;line.dotted;text:green 
+ShopifyOAuthCache -down-> server #line:grey;line.dotted;text:grey
+
+container -down-> ShopifyOAuthCache #line:red;text:red : Run Time Retrieval
+ShopifyOAuthCache -right-> sm #line:orange;text:orange : Build Time Retrieval
+
+appDevelopers -up-> sm #line:violet;text:violet : Inject Credentials
+appDevelopers --left--> server #line:violet;text:violet : Acquire Credentials
+
+
+
+
+
+
+  #+end_src
+
+  #+RESULTS:
+  [[file:shopify-middleware.jpeg]]
