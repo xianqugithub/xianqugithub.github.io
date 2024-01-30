@@ -30,33 +30,17 @@ This script is triggered during docker building process. The key ingredient here
     
 ```
 #!/bin/bash
-echo "Retrieving Configuration Files and Building"
+# Retrieving Configuration Files and Building
 sc=$(aws secretsmanager get-secret-value \
          --secret-id ShopifySecret \
          --region us-east-1 | jq -r '.SecretString|fromjson')
-echo "Finished Retriving Configs"
-
-echo "Building Front End"
 
 # This is provides store specific credential mapping.
 export SHOPIFY_STORES=$(jq -r '.SHOPIFY_STORES' <<< "$sc")
 
-# This is for default app credential.
-export SHOPIFY_API_KEY=$(jq -r '.SHOPIFY_API_KEY' <<< "$sc")
-export SHOPIFY_API_SECRET=$(jq -r '.SHOPIFY_API_SECRET' <<< "$sc")
-
 # Frontend will use vite to build
 # At this timepoint, all environment variables will be available for vite to refer
 npm run build-frontend
-
-echo "Finished Building Front End for Default"
-
-echo "Backend Preparing to Serve Requests..."
-npm run serve
-echo "Backend Now Serving Requests."
-
-echo "App Build And Serve Script Complete."
-
 ```
     
 
