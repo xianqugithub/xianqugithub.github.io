@@ -38,6 +38,9 @@ sc=$(aws secretsmanager get-secret-value \
 # This is provides store specific credential mapping.
 export SHOPIFY_STORES=$(jq -r '.SHOPIFY_STORES' <<< "$sc")
 
+# For deafult API key
+export SHOPIFY_API_KEY=$(jq -r '.SHOPIFY_API_KEY' <<< "$sc")
+
 # Frontend will use vite to build
 # At this timepoint, all environment variables will be available for vite to refer
 npm run build-frontend
