@@ -124,6 +124,7 @@ container -right-> sm
   #+RESULTS:
   [[file:open-search-serverless.jpeg]]
 
+
 * Shopify MiddleWare Diagram
   #+begin_src plantuml :file shopify-middleware.jpeg
 !define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v15.0/dist
@@ -179,3 +180,71 @@ appDevelopers --left--> server #line:violet;text:violet : Acquire Credentials
 
   #+RESULTS:
   [[file:shopify-middleware.jpeg]]
+
+
+* JVM TLS Architecture Diagram
+    #+begin_src plantuml :file jvm-tls.jpeg
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v15.0/dist
+!include AWSPuml/AWSCommon.puml
+!include AWSPuml/General/Traditionalserver.puml
+!include AWSPuml/Containers/ElasticContainerRegistryImage.puml
+!include AWSPuml/NetworkingContentDelivery/Route53.puml
+!include AWSPuml/General/Users.puml
+!include AWSPuml/SecurityIdentityCompliance/SecretsManager.puml
+!include AWSPuml/Containers/ElasticContainerRegistryImage.puml
+!include AWSPuml/NetworkingContentDelivery/ElasticLoadBalancing.puml
+
+
+
+Users(serviceClientOne, "Service Client", "requests with TLS >= 1.2")
+ElasticLoadBalancing(elb1, "Network Load Balancer", "traffic balancer for TLS >= 1.2")
+
+
+rectangle "Legacy Client Use Case To Be Supported" {
+    Users(serviceClientTwo, "Legacy Service Client", "requests with TLS < 1.2")
+    ElasticLoadBalancing(elb2, "Network Load Balancer", "traffic balancer for TLS < 1.2")
+}
+
+rectangle "Server Cluster" {
+
+   Traditionalserver(t1server, "Server", "handles request")
+   Traditionalserver(t2server, "Server", "handles request")
+   Traditionalserver(t3server, "Server", "handles request")
+   
+   rectangle "Java Virtual Machine" {
+      [Socket] << JDK >>
+      [Servlet] << Tomcat >>
+
+       map "TLS Process Logic" as TLSProcess {
+          TSL>=1.2 => Supported by JVM by default
+          TLS<1.2 => Turned on by JVM parameter
+      }
+
+      Socket -down-> TLSProcess: TLS Processing
+      TLSProcess -down-> Servlet: Forward Request
+   }
+
+   t1server -down-> Socket #line:black;text:black
+   t2server -down-> Socket #line:black;text:black
+   t3server -down-> Socket #line:black;text:black
+}
+
+serviceClientOne --> elb1 #line:red;text:red
+
+elb1 --> t1server #line:red;text:red
+elb1 --> t2server #line:red;text:red
+elb1 --> t3server #line:red;text:red
+
+serviceClientTwo --> elb2 #line:green;text:green
+
+elb2 --> t1server #line:green;text:green
+elb2 --> t2server #line:green;text:green
+elb2 --> t3server #line:green;text:green
+
+  #+end_src
+
+  #+RESULTS:
+  [[file:jvm-tls.jpeg]]
+
+
+  
